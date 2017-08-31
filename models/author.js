@@ -21,13 +21,20 @@ AuthorSchema.virtual('url').get(function(){
   return  '/catalog/author/' + this._id;
  });
    
+AuthorSchema.virtual('lifespan').get(function(){
+	b = this.date_of_birth ? moment(this.date_of_birth).format('YYYY-MM-DD') : ''; 
+	d = this.date_of_death ? moment(this.date_of_death).format('YYYY-MM-DD') : ''; 
+	
+  return  b + '--' + d;
+ });
+ 
 AuthorSchema.virtual('birth_formatted').get(function(){
-  return this.date_of_birth ? moment(this.date_of_birth).format('MMMM Do YYYY') : ''; 
+  return this.date_of_birth ? moment(this.date_of_birth).format('YYYY-MM-DD') : ''; 
  });
 
 AuthorSchema.virtual('death_formatted').get(function(){
-  //return this.date_of_death ? moment(this.date_of_death).format('YYYY-MM-DD') : ''; 
-  return this.date_of_death ? moment(this.date_of_death).format('MMMM Do YYYY') : ''; 
+  return this.date_of_death ? moment(this.date_of_death).format('YYYY-MM-DD') : ''; 
+  //return this.date_of_death ? moment(this.date_of_death).format('MMMM Do YYYY') : ''; 
  });
 
 module.exports = mongoose.model('Author', AuthorSchema);
